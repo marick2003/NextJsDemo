@@ -4,6 +4,13 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from "react";
 import { GetServerSideProps } from "next";
 import Link from 'next/link'
+import { useSelector, useDispatch } from "react-redux";
+import { iconAction } from "../store/icon-slice";
+import sun24 from "../icon/sun-24.png";
+import moon30 from "../icon/moon-30.png";
+import Auth from "../components/Auth";
+import Counter from '../components/Counter';
+import { authActions } from "../store/auth-slice";
 const  Post={
   userId:'',
   id:'',
@@ -17,9 +24,35 @@ export default function Home() {
       .then((res) => res.json())
       .then((res) => setPost(res));
   }, []);
+
+  const dispatcher = useDispatch()
+
+  let icon = useSelector(state => state.icon)
+  let isAuth = useSelector(state => state.auth.isAuthenticated);
+  function logoutHandler(){
+    dispatcher(authActions.logout());
+  }
+  function changeIcon() {
+    dispatcher(iconAction.toggleIcon());
+  }
+
+
   return (
     
-    <div className={styles.container}>
+    <div style={{ backgroundColor: icon.icon === "moon" ? "white" : "#000000b5" }} className={styles.container}>
+      <div onClick={changeIcon}>
+        <Image
+              width={30}
+              height={30}
+              objectFit="cover"
+              src={icon.icon === 'moon' ? moon30 : sun24}
+              alt="image"
+            />
+      </div>
+      
+      {!isAuth && <Auth />}
+      {isAuth && <button onClick={logoutHandler}>Logout</button>}
+      <Counter/>
       <div>
         <h1>{post?.title}</h1>
         <p>{post?.body}</p>
