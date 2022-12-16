@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 
+
 // This gets called on every request
 export async function getStaticProps () {
     // Fetch data from external API
@@ -10,6 +11,7 @@ export async function getStaticProps () {
     // Pass data to the page via props
     return { props: { post } }
   }
+  
 
   export default  function PostList({ post }){
     const router = useRouter();

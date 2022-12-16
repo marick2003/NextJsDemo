@@ -5,7 +5,8 @@ export async function getStaticProps () {
   const post = await res.json()
 
   // Pass data to the page via props
-  return { props: { post } }
+  return { props: { post },
+  revalidate: 60, } //60 秒打包一次
 }
 
   export default function Post({post}) {
