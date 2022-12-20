@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import useSWRInfinite from "swr/infinite";
+import BackBtn from '../../components/BackBtn';
 
 // This gets called on every request
 export async function getStaticProps () {
@@ -21,7 +22,7 @@ export async function getStaticProps () {
     return (
         <div> 
             <div >
-                <button onClick={()=> handlerBack('/posts/')}></button>
+                <BackBtn url='/' />
             </div>
             <ul>{
             post.map(element => (

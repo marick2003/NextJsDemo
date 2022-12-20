@@ -11,6 +11,7 @@ import moon30 from "../icon/moon-30.png";
 import Auth from "../components/Auth";
 import Counter from '../components/Counter';
 import { authActions } from "../store/auth-slice";
+import ClickTime from "../components/ClickTime";
 const  Post={
   userId:'',
   id:'',
@@ -57,6 +58,7 @@ export default function Home() {
         <h1>{post?.title}</h1>
         <p>{post?.body}</p>
       </div>
+      <ClickTime/>
         <ul>
             <li>
               <Link href="/">Home</Link>
